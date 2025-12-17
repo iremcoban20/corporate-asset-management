@@ -6,8 +6,8 @@ services:
     container_name: asset_management_db
     restart: always
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: securepassword123
+      POSTGRES_USER: İrem
+      POSTGRES_PASSWORD: İrem20
       POSTGRES_DB: asset_db
     ports:
       - "5432:5432"
