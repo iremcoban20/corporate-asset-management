@@ -1,0 +1,120 @@
+:root {
+  --primary: #4f46e5;
+  /* Indigo 600 */
+  --primary-hover: #4338ca;
+  /* Indigo 700 */
+  --secondary: #64748b;
+  /* Slate 500 */
+  --bg-main: #f3f4f6;
+  /* Gray 100 */
+  --bg-sidebar: #1e293b;
+  /* Slate 800 */
+  --bg-card: #ffffff;
+  --text-main: #111827;
+  /* Gray 900 */
+  --text-muted: #6b7280;
+  /* Gray 500 */
+  --text-light: #f8fafc;
+  /* Slate 50 */
+  --border: #e5e7eb;
+  /* Gray 200 */
+  --sidebar-width: 260px;
+  --header-height: 64px;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  height: 100vh;
+  overflow: hidden;
+  /* App-like feel */
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Layout Utilities */
+.layout-container {
+  display: flex;
+  height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 2rem;
+}
+
+/* Component: Card */
+.card {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  border: 1px solid var(--border);
+}
+
+.card-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-main);
+}
+
+.card-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* Component: Button */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  outline: none;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Typography */
+h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}

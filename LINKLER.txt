@@ -1,0 +1,12 @@
+Varlık Takip Sistemi Bağlantıları
+----------------------------------
+Web Arayüzü (Ana Sayfa): http://localhost:3001
+API Dokümantasyonu (Backend): http://localhost:3000/api/status
+
+Çalıştırma Komutu:
+Terminalde proje klasö.üne girip şu komutu yazın:
+./baslat.sh
+(Veya: docker-compose up)
+
+Kapatma Komutu:
+docker-compose down

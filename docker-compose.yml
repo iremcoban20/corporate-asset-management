@@ -6,14 +6,44 @@ services:
     container_name: asset_management_db
     restart: always
     environment:
-      POSTGRES_USER: İrem
-      POSTGRES_PASSWORD: İrem20
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: securepassword123
       POSTGRES_DB: asset_db
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  backend:
+    build: ./backend
+    container_name: asset_management_api
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      DB_USER: admin
+      DB_PASSWORD: securepassword123
+      DB_NAME: asset_db
+      DB_HOST: db
+      DB_PORT: 5432
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      - db
+
+  frontend:
+    build: ./frontend
+    container_name: asset_management_ui
+    restart: always
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
 
 volumes:
   pgdata:

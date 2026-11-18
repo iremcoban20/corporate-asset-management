@@ -1,88 +1,74 @@
-# Asset Management System Automation
+# 📦 Şirket Varlık Takip Sistemi (Asset Tracking Automation)
 
-Bu proje, bir şirketin fiziksel varlıklarını (laptop, monitör, araçlar, lisanslar vb.) takip etmek, sahipliğini yönetmek ve geçmişini izlemek için PostgreSQL tabanlı bir otomasyon sistemidir. Proje, Docker üzerinde koşan bir PostgreSQL veritabanı ile çalışır.
+Bu proje, şirket içi fiziksel varlıkların (laptop, telefon, araç vb.) takibini sağlamak, personele zimmetlemek ve zimmet geçmişini yönetmek için geliştirilmiş modern bir web uygulamasıdır.
 
-## Özellikler
-- **Varlık Takibi:** Demirbaşların durumu ve özellikleri.
-- **Çalışan Yönetimi:** Varlıkların zimmetlendiği çalışanlar.
-- **Zimmet Geçmişi:** Kimde, ne zaman, hangi durumda?
-- **Normalize Veritabanı:** İlişkisel ve tutarlı veri yapısı.
-- **Dockerize Yapı:** Tek komutla tüm ortamın kurulumu.
+## 🚀 Özellikler
 
-## Gereksinimler
-- Docker ve Docker Compose (Windows 10 üzerinde kurulu olmalı)
-- Git (Opsiyonel, repoyu klonlamak için)
+- **Dashboard:** Toplam varlık, zimmetli ürün, personel sayısı ve bakım durumu özeti.
+- **Varlık Yönetimi:**
+  - Yeni varlık ekleme (Seri No, Marka, Model, Kategori).
+  - Varlık listeleme, arama ve filtreleme.
+  - Durum takibi (Mevcut, Zimmetli, Bakımda, Emekli).
+- **Zimmet İşlemleri:**
+  - "Mevcut" durumdaki ürünleri personele zimmetleme (`Assign`).
+  - Zimmetlenen ürünleri personelden geri alma (`Return`).
+  - **Özel Popup:** İade işlemi için güvenli onay penceresi.
+- **Personel Yönetimi:**
+  - Çalışan listesi ve departman bilgileri.
+  - Yeni çalışan ekleme.
+- **Teknolojiler:**
+  - **Frontend:** Next.js 14 (App Router), Vanilla CSS (Premium Design).
+  - **Backend:** Node.js (Express.js).
+  - **Veritabanı:** PostgreSQL (Dockerized).
+  - **Altyapı:** Docker & Docker Compose (Tek komutla kurulum).
 
-## Kurulum ve Çalıştırma
+---
 
-1. **Repoyu Klonlayın veya İndirin**
-   ```bash
-   git clone <repo-url>
-   cd my_project
-   ```
+## 🛠️ Kurulum ve Çalıştırma
 
-2. **Sistemi Başlatın**
-   Veritabanını ayağa kaldırmak ve tabloları otomatik oluşturmak için:
-   ```bash
-   docker-compose up -d
-   ```
-   Bu komut:
-   - PostgreSQL 16 konteynerini indirir.
-   - `pgdata` volume'ünü oluşturur (verilerin kalıcılığı için).
-   - `init.sql` dosyasını çalıştırarak veritabanı şemasını kurar.
+Proje tamamen Dockerize edilmiştir. Bilgisayarınızda `Docker` ve `Docker Compose` kurulu olması yeterlidir.
 
-3. **Veritabanına Erişim**
-   Konteyner çalıştıktan sonra veritabanına bağlanmak için herhangi bir PostgreSQL istemcisi (DBeaver, pgAdmin) veya komut satırı kullanabilirsiniz.
+### 1. Projeyi Başlatma
+Terminali açın ve proje dizininde şu komutu çalıştırın:
+```bash
+docker-compose up --build
+```
+*Bu komut veritabanını, backend servisini ve frontend uygulamasını sırasıyla hazırlar ve başlatır.*
 
-   - **Host:** `localhost`
-   - **Port:** `5432`
-   - **Kullanıcı:** `admin`
-   - **Şifre:** `securepassword123`
-   - **Veritabanı:** `asset_db`
+### 2. Uygulamaya Erişim
+- **Web Arayüzü (Frontend):** [http://localhost:3001](http://localhost:3001)
+- **API Servisi (Backend):** [http://localhost:3000](http://localhost:3000)
 
-   Komut satırından bağlanmak için:
-   ```bash
-   docker exec -it asset_management_db psql -U admin -d asset_db
-   ```
+---
 
-## Veritabanı Şeması
+## 🗄️ Veritabanı Bilgileri
 
-Proje normalize edilmiş aşağıdaki tablolardan oluşur:
+Sistem ilk açıldığında `init.sql` dosyası sayesinde gerekli tabloları ve örnek verileri (Departmanlar, Kategoriler) otomatik oluşturur.
 
-1. **departments:** Şirket departmanları.
-2. **employees:** Çalışan bilgileri (İsim, email, departman).
-3. **asset_categories:** Varlık kategorileri (Laptop, Monitor, Araç vb.).
-4. **assets:** Tüm fiziksel ve dijital varlıklar.
-   - `status`: AVAILABLE, ASSIGNED, MAINTENANCE, RETIRED
-5. **asset_assignments:** Zimmet kayıtları (Geçmiş ve mevcut durumu tutar).
+- **Host:** `localhost` (Site içi: `db`)
+- **Port:** `5432`
+- **Kullanıcı:** `admin`
+- **Şifre:** `securepassword123`
+- **Veritabanı:** `asset_db`
 
-## Geliştirme Yol Haritası (Future Goals)
+---
 
-Projeyi daha da geliştirmek için aşağıdaki adımlar izlenebilir:
+## 📖 Kullanım Senaryosu
 
-### 1. Backend API Geliştirme
-Veritabanı ile konuşan bir RESTful API yazın.
-- **Teknoloji:** Node.js (Express/NestJS) veya Python (FastAPI/Django).
-- **Komut:**
-  ```bash
-  # Node.js örneği
-  npm init -y
-  npm install express pg
-  ```
+1.  **Varlık Ekle:** `/assets/new` sayfasına gidin ve şirkete alınan yeni bir bilgisayarı kaydedin. Durumu "Mevcut" olacaktır.
+2.  **Çalışan Ekle:** `/employees/new` sayfasından yeni işe başlayan bir personeli kaydedin.
+3.  **Zimmetle:** Varlık listesinde (`/assets`), eklediğiniz ürünün yanındaki **"Zimmetle"** butonuna basın. Çalışanı seçip kaydedin.
+4.  **Kontrol Et:** Listede ürünün durumu **"Zimmetli"** olacak ve personelin adı görünecektir.
+5.  **İade Al:** Personel ürünü teslim ettiğinde, listedeki **"İade Al"** butonuna basın. Açılan onay penceresine "Onayla" dediğinizde ürün tekrar havuza döner.
 
-### 2. Frontend Arayüzü
-API'yi kullanarak kullanıcı dostu bir arayüz yapın.
-- **Teknoloji:** React, Vue veya Angular.
-- **Komut:**
-  ```bash
-  npx create-next-app@latest my-asset-app
-  ```
+---
 
-### 3. Yönetim Paneli
-Admin paneli için hazır araçlar entegre edilebilir (AdminJS, Forest Admin).
+## 🔮 Gelecek Planları (Roadmap)
 
-### 4. Raporlama
-Varlık durumları ve departman bazlı raporlar için SQL sorguları geliştirin veya bir BI aracı bağlayın (Metabase).
+- [ ] Kullanıcı Girişi (Login/Auth) sistemi.
+- [ ] Detaylı zimmet geçmişi (Log) sayfası.
+- [ ] Varlıklar için QR Kod oluşturma.
+- [ ] Bakım (Maintenance) modülü entegrasyonu.
 
-## Sorun Giderme
-Eğer port hatası alırsanız (5432 doluysa), `docker-compose.yml` dosyasındaki portu değiştirin (örn: `"5433:5432"`).
+---
+*Geliştirici: Antigravity (Google DeepMind)*
